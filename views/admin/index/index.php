@@ -9,7 +9,7 @@
  */
 
 $head = array('body_class' => 'shared-shelf-link primary',
-    'title'      => 'Shared Shelf Link');
+    'title'      => __('Shared Shelf Link'));
 head($head);
 ?>
 
@@ -40,7 +40,7 @@ head($head);
         <tr>
             <td><?php echo $transfer->id; ?></td>
             <td><?php echo $transfer->ss_id; ?></td>
-            <td><?php echo $$transfer->published; ?></td>
+            <td><?php echo __($transfer->published); ?></td>
         </tr>
             <?php endforeach; ?>
         </tbody>
