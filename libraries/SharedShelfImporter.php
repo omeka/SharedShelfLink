@@ -37,9 +37,11 @@ class SharedShelfImporter
     private function _findLinkedItem($id, $collection_id)
     {
         $record = get_db()->getTable('SharedShelfTransferRecord')->findBySharedShelfIdAndCollectionId((int)$id, (int)$collection_id);
-        $item = get_db()->getTable('Item')->find($record->item_id);
-        release_object($record);
-        return $item;
+        if($record) {
+            $item = get_db()->getTable('Item')->find($record->item_id);
+            release_object($record);
+            return $item;
+        }
     }
 
     private function _updateItem($id, $elementTexts)
@@ -135,14 +137,14 @@ class SharedShelfImporter
             'relation', 'rights', 'source',
             'subject', 'title', 'type');
         foreach ($elements as $element) {
-            if ($data[$element]) {
-                foreach ($data[$element] as $t) {
+            if (array_key_exists($element, $data)) {
+                foreach($data[$element] as $t) {
                     $elementTexts['Dublin Core'][ucwords($element)][] = array('text' => (string) $t, 'html' => false);
                 }
             }
         }
 
-        if ($files['_image_file']) {
+        if (array_key_exists('_image_file', $files)) {
             $fileMetadata['file_transfer_type'] = 'Upload';
             $fileMetadata['files'] = '_image_file';
         }
