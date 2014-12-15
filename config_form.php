@@ -10,7 +10,8 @@
 <div class="field">
     <label for="shared_shelf_link_token">Authorization Token</label>
     <div class="inputs five columns omega">
-        <?php echo get_view()->formText('shared_shelf_link_token', '<Your Token Here>', null);?>
+        <?php $option = (get_option('shared_shelf_link_token') == '')? '<Your Token Here>' : get_option('shared_shelf_link_token');
+         echo get_view()->formText('shared_shelf_link_token', $option , null);?>
         <p class="explanation">A authorization token/password that the Shared Shelf
         publisher will provide to authenticate each publishing request.  (Use password best practices.)</p>
     </div>
